@@ -36,6 +36,11 @@ module TvdbParty
       return response["Items"] ? response["Items"] : []
     end
 
+    def get_all_updates(timestamp)
+      response = self.class.get("/Updates.php", {:query => { :time => timestamp, :type => 'all'}}).parsed_response
+      return response["Items"] ? response["Items"] : []
+    end
+
     def get_series_by_id(series_id, language = self.language)
       response = self.class.get("/#{@api_key}/series/#{series_id}/#{language}.xml").parsed_response
 
