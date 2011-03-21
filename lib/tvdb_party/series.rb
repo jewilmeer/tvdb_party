@@ -11,6 +11,7 @@ module TvdbParty
       @overview       = options["Overview"]
       @network        = options["Network"]
       @runtime        = options["Runtime"]
+      @status         = options["Status"]
       @air_time       = options['Airs_Time'] if options['Airs_Time']
       @airs_dayofweek = options['Airs_DayOfWeek']
 
