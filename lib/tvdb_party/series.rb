@@ -2,7 +2,7 @@ module TvdbParty
   class Series
     attr_reader :client
     attr_accessor :id, :name, :overview, :seasons, :first_aired, :genres, :network, :rating, :runtime,
-                  :actors, :banners, :air_time, :airs_dayofweek
+                  :actors, :banners, :air_time, :airs_dayofweek, :status
 
     def initialize(client, options={})
       @client         = client
