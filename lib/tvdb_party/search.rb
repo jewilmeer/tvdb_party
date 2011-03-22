@@ -69,8 +69,8 @@ module TvdbParty
       end
     end
 
-    def get_all_episodes(series, language = self.language)
-      response = self.class.get("/#{@api_key}/series/#{series.id}/all/#{language}.xml").parsed_response
+    def get_all_episodes_by_id(serie_id, language = self.language)
+      response = self.class.get("/#{@api_key}/series/#{serie_id}/all/#{language}.xml").parsed_response
       return [] unless response["Data"] && response["Data"]["Episode"]
       case response["Data"]["Episode"]
       when Array
@@ -82,8 +82,12 @@ module TvdbParty
       end
     end
 
-    def get_actors(series)
-      response = self.class.get("/#{@api_key}/series/#{series.id}/actors.xml").parsed_response
+    def get_all_episodes(series, language = self.language)
+      get_all_episodes_by_id series.id, language
+    end
+
+    def get_actors_by_id(serie_id)
+      response = self.class.get("/#{@api_key}/series/#{serie_id}/actors.xml").parsed_response
       if response["Actors"] && response["Actors"]["Actor"]
         response["Actors"]["Actor"].collect {|a| Actor.new(a)}
       else
@@ -91,8 +95,12 @@ module TvdbParty
       end
     end
 
-    def get_banners(series)
-      response = self.class.get("/#{@api_key}/series/#{series.id}/banners.xml").parsed_response
+    def get_actors(series)
+      get_actors_by_id series.id
+    end
+
+    def get_banners_by_id serie_id
+      response = self.class.get("/#{@api_key}/series/#{serie_id}/banners.xml").parsed_response
       return [] unless response["Banners"] && response["Banners"]["Banner"]
       case response["Banners"]["Banner"]
       when Array
@@ -102,6 +110,10 @@ module TvdbParty
       else
         []
       end
+    end
+
+    def get_banners(series)
+      get_banners_by_id series.id
     end
 
   end
