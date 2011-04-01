@@ -18,9 +18,9 @@ module TvdbParty
 
       case response["Data"]["Series"]
       when Array
-        response["Data"]["Series"]
-      when Hash
-        [response["Data"]["Series"]]
+        response["Data"]["Series"].map {|result| Series.new(self, result)}
+       when Hash
+        [Series.new(self, response["Data"]["Series"])]
       else
         []
       end
