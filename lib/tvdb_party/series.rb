@@ -30,7 +30,7 @@ module TvdbParty
       begin
         @first_aired = Date.parse(options["FirstAired"])
       rescue
-        puts 'invalid date'
+        @first_aired = nil
       end
     end
 
